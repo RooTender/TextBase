@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cApp.h" />
+    <ClInclude Include="tbApp.h" />
+    <ClInclude Include="tbMain.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cApp.cpp" />
+    <ClCompile Include="tbApp.cpp" />
+    <ClCompile Include="tbMain.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

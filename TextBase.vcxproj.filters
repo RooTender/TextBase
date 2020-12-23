@@ -15,12 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cApp.h">
+    <ClInclude Include="tbApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tbMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cApp.cpp">
+    <ClCompile Include="tbApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tbMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
