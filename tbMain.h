@@ -23,7 +23,8 @@ private:
 	wxButton* editButton = nullptr;
 	wxButton* delButton = nullptr;
 
-	wxTextCtrl* searchBox = nullptr;
+	wxStaticText* searchBarLabel = nullptr;
+	wxTextCtrl* searchBar = nullptr;
 	wxComboBox* searchCatBox = nullptr;
 
 	wxListView* listView = nullptr;
