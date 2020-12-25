@@ -13,6 +13,7 @@ private:
 	wxMenuBar* menuBar = nullptr;
 
 	wxMenu* fileMenu = nullptr;
+		wxMenu* sNewMenu = nullptr;
 	wxMenu* editMenu = nullptr;
 	wxMenu* viewMenu = nullptr;
 	wxMenu* toolsMenu = nullptr;
