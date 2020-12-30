@@ -11,7 +11,6 @@ tbMain::tbMain(const wxString title, const wxSize size) : wxFrame(nullptr, wxID_
 	initMenuBar();
 
 	wxPanel* leftPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(lPanelWidth, size.GetHeight()));
-	leftPanel->SetBackgroundColour(wxColor(100, 100, 200));
 
 	addButton = new wxButton(leftPanel, wxID_ANY, "Add", wxPoint(margin, 10), wxSize(componentWidth, 50));
 	editButton = new wxButton(leftPanel, wxID_ANY, "Edit", wxPoint(margin, 70), wxSize(componentWidth, 50));
@@ -21,20 +20,27 @@ tbMain::tbMain(const wxString title, const wxSize size) : wxFrame(nullptr, wxID_
 	searchBar = new wxTextCtrl(leftPanel, wxID_ANY, wxEmptyString, wxPoint(margin, 220), wxSize(componentWidth, 24));
 	searchCatBox = new wxComboBox(leftPanel, wxID_ANY, "\"any\"", wxPoint(margin, 254), wxSize(componentWidth, 24));
 
-
 	wxPanel* mainPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(mainPanelWidth, size.GetHeight()));
-	mainPanel->SetBackgroundColour(wxColor(100, 200, 100));
 
 	listView = new wxListView(mainPanel, wxID_ANY, wxPoint(margin, 10), wxSize(mainPanelWidth - 2 * margin, size.GetHeight() - 2 * margin));
-
-
+	
+	// main sizer
 	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+	
+	// panel
+	wxBoxSizer* panelHorizontalSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	wxBoxSizer* sizerHorizontal = new wxBoxSizer(wxHORIZONTAL);
-	sizerHorizontal->Add(leftPanel, 0, wxEXPAND);
-	sizerHorizontal->Add(mainPanel, 1, wxEXPAND);
+	panelHorizontalSizer->Add(leftPanel, 0, wxEXPAND);
+	panelHorizontalSizer->Add(mainPanel, 1, wxEXPAND);
+	sizer->Add(panelHorizontalSizer, 1, wxEXPAND);
 
-	sizer->Add(sizerHorizontal, 1, wxEXPAND);
+	// list view
+	wxBoxSizer* listViewSizerVR = new wxBoxSizer(wxVERTICAL);
+	wxBoxSizer* listViewSizerHR = new wxBoxSizer(wxHORIZONTAL);
+
+	listViewSizerHR->Add(listView, 1, wxEXPAND);
+	listViewSizerVR->Add(listViewSizerHR, 1, wxEXPAND | wxALL, margin);
+	mainPanel->SetSizer(listViewSizerVR);
 
 	this->SetSizerAndFit(sizer);
 }
