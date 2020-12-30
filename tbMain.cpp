@@ -2,8 +2,28 @@
 
 tbMain::tbMain(const wxString title, const wxSize size) : wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, size)
 {
+	const int lPanelWidth = size.GetWidth() / 5;
+	const int mainPanelWidth = size.GetWidth() - lPanelWidth;
+
 	initMenuBar();
-	addButton = new wxButton(this, wxID_ANY, "Add", wxPoint(10, 10), wxSize(150, 50));
+
+	wxPanel* leftPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(lPanelWidth, size.GetHeight()));
+	leftPanel->SetBackgroundColour(wxColor(100, 100, 200));
+
+	wxPanel* mainPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(mainPanelWidth, size.GetHeight()));
+	mainPanel->SetBackgroundColour(wxColor(100, 200, 100));
+	
+	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+
+	wxBoxSizer* sizerHorizontal = new wxBoxSizer(wxHORIZONTAL);
+	sizerHorizontal->Add(leftPanel, 0, wxEXPAND);
+	sizerHorizontal->Add(mainPanel, 1, wxEXPAND);
+
+	sizer->Add(sizerHorizontal, 1, wxEXPAND);
+
+	this->SetSizerAndFit(sizer);
+
+	/*addButton = new wxButton(this, wxID_ANY, "Add", wxPoint(10, 10), wxSize(lPanelWidth, 50));
 	editButton = new wxButton(this, wxID_ANY, "Edit", wxPoint(10, 70), wxSize(150, 50));
 	delButton = new wxButton(this, wxID_ANY, "Remove", wxPoint(10, 130), wxSize(150, 50));
 
@@ -12,7 +32,8 @@ tbMain::tbMain(const wxString title, const wxSize size) : wxFrame(nullptr, wxID_
 	searchCatBox = new wxComboBox(this, wxID_ANY, "\"any\"", wxPoint(10, 254), wxSize(150, 24));
 
 	const int xOffset = 180;
-	listView = new wxListView(this, wxID_ANY, wxPoint(xOffset, 10), wxSize(size.x - xOffset - 30, size.y - 80));
+
+	listView = new wxListView(this, wxID_ANY, wxPoint(xOffset, 10), wxSize(size.x - xOffset - 30, size.y - 80));*/
 }
 
 tbMain::~tbMain()
