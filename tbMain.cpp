@@ -4,15 +4,30 @@ tbMain::tbMain(const wxString title, const wxSize size) : wxFrame(nullptr, wxID_
 {
 	const int lPanelWidth = size.GetWidth() / 5;
 	const int mainPanelWidth = size.GetWidth() - lPanelWidth;
+	
+	const int margin = 10;
+	const int componentWidth = lPanelWidth - 2 * margin;
 
 	initMenuBar();
 
 	wxPanel* leftPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(lPanelWidth, size.GetHeight()));
 	leftPanel->SetBackgroundColour(wxColor(100, 100, 200));
 
+	addButton = new wxButton(leftPanel, wxID_ANY, "Add", wxPoint(margin, 10), wxSize(componentWidth, 50));
+	editButton = new wxButton(leftPanel, wxID_ANY, "Edit", wxPoint(margin, 70), wxSize(componentWidth, 50));
+	delButton = new wxButton(leftPanel, wxID_ANY, "Remove", wxPoint(margin, 130), wxSize(componentWidth, 50));
+
+	searchBarLabel = new wxStaticText(leftPanel, wxID_ANY, "Search for:", wxPoint(margin, 200));
+	searchBar = new wxTextCtrl(leftPanel, wxID_ANY, wxEmptyString, wxPoint(margin, 220), wxSize(componentWidth, 24));
+	searchCatBox = new wxComboBox(leftPanel, wxID_ANY, "\"any\"", wxPoint(margin, 254), wxSize(componentWidth, 24));
+
+
 	wxPanel* mainPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(mainPanelWidth, size.GetHeight()));
 	mainPanel->SetBackgroundColour(wxColor(100, 200, 100));
-	
+
+	listView = new wxListView(mainPanel, wxID_ANY, wxPoint(margin, 10), wxSize(mainPanelWidth - 2 * margin, size.GetHeight() - 2 * margin));
+
+
 	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
 
 	wxBoxSizer* sizerHorizontal = new wxBoxSizer(wxHORIZONTAL);
@@ -22,18 +37,6 @@ tbMain::tbMain(const wxString title, const wxSize size) : wxFrame(nullptr, wxID_
 	sizer->Add(sizerHorizontal, 1, wxEXPAND);
 
 	this->SetSizerAndFit(sizer);
-
-	/*addButton = new wxButton(this, wxID_ANY, "Add", wxPoint(10, 10), wxSize(lPanelWidth, 50));
-	editButton = new wxButton(this, wxID_ANY, "Edit", wxPoint(10, 70), wxSize(150, 50));
-	delButton = new wxButton(this, wxID_ANY, "Remove", wxPoint(10, 130), wxSize(150, 50));
-
-	searchBarLabel = new wxStaticText(this, wxID_ANY, "Search for:", wxPoint(10, 200));
-	searchBar = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxPoint(10, 220), wxSize(150, 24));
-	searchCatBox = new wxComboBox(this, wxID_ANY, "\"any\"", wxPoint(10, 254), wxSize(150, 24));
-
-	const int xOffset = 180;
-
-	listView = new wxListView(this, wxID_ANY, wxPoint(xOffset, 10), wxSize(size.x - xOffset - 30, size.y - 80));*/
 }
 
 tbMain::~tbMain()
