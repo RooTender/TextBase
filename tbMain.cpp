@@ -4,13 +4,12 @@ tbMain::tbMain(const wxString title, const wxSize size) : wxFrame(nullptr, wxID_
 {
 	const int lPanelWidth = size.GetWidth() / 5;
 	const int mainPanelWidth = size.GetWidth() - lPanelWidth;
-	
-	const int margin = 10;
 	const int componentWidth = lPanelWidth - 2 * margin;
 
 	initMenuBar();
 
 	wxPanel* leftPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(lPanelWidth, size.GetHeight()));
+	wxPanel* mainPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(mainPanelWidth, size.GetHeight()));
 
 	addButton = new wxButton(leftPanel, wxID_ANY, "Add", wxPoint(margin, 10), wxSize(componentWidth, 50));
 	editButton = new wxButton(leftPanel, wxID_ANY, "Edit", wxPoint(margin, 70), wxSize(componentWidth, 50));
@@ -20,29 +19,9 @@ tbMain::tbMain(const wxString title, const wxSize size) : wxFrame(nullptr, wxID_
 	searchBar = new wxTextCtrl(leftPanel, wxID_ANY, wxEmptyString, wxPoint(margin, 220), wxSize(componentWidth, 24));
 	searchCatBox = new wxComboBox(leftPanel, wxID_ANY, "\"any\"", wxPoint(margin, 254), wxSize(componentWidth, 24));
 
-	wxPanel* mainPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(mainPanelWidth, size.GetHeight()));
-
 	listView = new wxListView(mainPanel, wxID_ANY, wxPoint(margin, 10), wxSize(mainPanelWidth - 2 * margin, size.GetHeight() - 2 * margin));
 	
-	// main sizer
-	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
-	
-	// panel
-	wxBoxSizer* panelHorizontalSizer = new wxBoxSizer(wxHORIZONTAL);
-
-	panelHorizontalSizer->Add(leftPanel, 0, wxEXPAND);
-	panelHorizontalSizer->Add(mainPanel, 1, wxEXPAND);
-	sizer->Add(panelHorizontalSizer, 1, wxEXPAND);
-
-	// list view
-	wxBoxSizer* listViewSizerVR = new wxBoxSizer(wxVERTICAL);
-	wxBoxSizer* listViewSizerHR = new wxBoxSizer(wxHORIZONTAL);
-
-	listViewSizerHR->Add(listView, 1, wxEXPAND);
-	listViewSizerVR->Add(listViewSizerHR, 1, wxEXPAND | wxALL, margin);
-	mainPanel->SetSizer(listViewSizerVR);
-
-	this->SetSizerAndFit(sizer);
+	setSizers(leftPanel, mainPanel, listView);
 }
 
 tbMain::~tbMain()
@@ -83,4 +62,27 @@ void tbMain::initMenuBar()
 	menuBar->Append(helpMenu, _T("Help"));
 
 	SetMenuBar(menuBar);
+}
+
+void tbMain::setSizers(wxPanel* leftPanel, wxPanel* mainPanel, wxListView* listViewToAttach)
+{
+	// main sizer
+	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+
+	// panel
+	wxBoxSizer* panelHorizontalSizer = new wxBoxSizer(wxHORIZONTAL);
+
+	panelHorizontalSizer->Add(leftPanel, 0, wxEXPAND);
+	panelHorizontalSizer->Add(mainPanel, 1, wxEXPAND);
+	sizer->Add(panelHorizontalSizer, 1, wxEXPAND);
+
+	// list view
+	wxBoxSizer* listViewSizerVR = new wxBoxSizer(wxVERTICAL);
+	wxBoxSizer* listViewSizerHR = new wxBoxSizer(wxHORIZONTAL);
+
+	listViewSizerHR->Add(listView, 1, wxEXPAND);
+	listViewSizerVR->Add(listViewSizerHR, 1, wxEXPAND | wxALL, margin);
+	mainPanel->SetSizer(listViewSizerVR);
+
+	this->SetSizerAndFit(sizer);
 }
