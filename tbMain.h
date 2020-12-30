@@ -9,6 +9,8 @@ public:
 	~tbMain();
 
 private:
+	const int margin = 10;
+
 	// menubar
 	wxMenuBar* menuBar = nullptr;
 
@@ -31,5 +33,6 @@ private:
 	wxListView* listView = nullptr;
 
 	void initMenuBar();
+	void setSizers(wxPanel* leftPanel, wxPanel* mainPanel, wxListView* listViewToAttach);
 };
 
