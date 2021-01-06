@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tbApp.h" />
+    <ClInclude Include="tbDialogNew.h" />
     <ClInclude Include="tbMain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tbApp.cpp" />
+    <ClCompile Include="tbDialogNew.cpp" />
     <ClCompile Include="tbMain.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

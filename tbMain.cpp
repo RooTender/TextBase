@@ -1,5 +1,12 @@
 #include "tbMain.h"
 
+wxBEGIN_EVENT_TABLE(tbMain, wxFrame)
+	EVT_MENU(51, tbMain::newDatabase)
+	//EVT_MENU(DO_TEST, tbMain::DoTest)
+	//EVT_SIZE(tbMain::OnSize)
+	//EVT_BUTTON(BUTTON1, tbMain::OnButton1)
+wxEND_EVENT_TABLE()
+
 tbMain::tbMain(const wxString title, const wxSize size) : wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, size)
 {
 	const int lPanelWidth = size.GetWidth() / 5;
@@ -28,6 +35,29 @@ tbMain::~tbMain()
 {
 }
 
+void tbMain::setSizers(wxPanel* leftPanel, wxPanel* mainPanel, wxListView* listViewToAttach)
+{
+	// main sizer
+	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+
+	// panel
+	wxBoxSizer* panelHorizontalSizer = new wxBoxSizer(wxHORIZONTAL);
+
+	panelHorizontalSizer->Add(leftPanel, 0, wxEXPAND);
+	panelHorizontalSizer->Add(mainPanel, 1, wxEXPAND);
+	sizer->Add(panelHorizontalSizer, 1, wxEXPAND);
+
+	// list view
+	wxBoxSizer* listViewSizerVR = new wxBoxSizer(wxVERTICAL);
+	wxBoxSizer* listViewSizerHR = new wxBoxSizer(wxHORIZONTAL);
+
+	listViewSizerHR->Add(listView, 1, wxEXPAND);
+	listViewSizerVR->Add(listViewSizerHR, 1, wxEXPAND | wxALL, margin);
+	mainPanel->SetSizer(listViewSizerVR);
+
+	this->SetSizerAndFit(sizer);
+}
+
 void tbMain::initMenuBar()
 {
 	menuBar = new wxMenuBar();
@@ -35,9 +65,9 @@ void tbMain::initMenuBar()
 	fileMenu = new wxMenu();
 
 	sNewMenu = new wxMenu();
-	sNewMenu->Append(wxID_ANY, _T("Database"));
-	sNewMenu->Append(wxID_ANY, _T("Table"));
-	sNewMenu->Append(wxID_ANY, _T("Record"));
+	sNewMenu->Append(51, _T("Database"));
+	sNewMenu->Append(52, _T("Table"));
+	sNewMenu->Append(53, _T("Record"));
 
 	fileMenu->AppendSubMenu(sNewMenu, _T("New..."));
 	fileMenu->Append(wxID_ANY, _T("Open database"));
@@ -64,25 +94,8 @@ void tbMain::initMenuBar()
 	SetMenuBar(menuBar);
 }
 
-void tbMain::setSizers(wxPanel* leftPanel, wxPanel* mainPanel, wxListView* listViewToAttach)
+void tbMain::newDatabase(wxCommandEvent& event)
 {
-	// main sizer
-	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
-
-	// panel
-	wxBoxSizer* panelHorizontalSizer = new wxBoxSizer(wxHORIZONTAL);
-
-	panelHorizontalSizer->Add(leftPanel, 0, wxEXPAND);
-	panelHorizontalSizer->Add(mainPanel, 1, wxEXPAND);
-	sizer->Add(panelHorizontalSizer, 1, wxEXPAND);
-
-	// list view
-	wxBoxSizer* listViewSizerVR = new wxBoxSizer(wxVERTICAL);
-	wxBoxSizer* listViewSizerHR = new wxBoxSizer(wxHORIZONTAL);
-
-	listViewSizerHR->Add(listView, 1, wxEXPAND);
-	listViewSizerVR->Add(listViewSizerHR, 1, wxEXPAND | wxALL, margin);
-	mainPanel->SetSizer(listViewSizerVR);
-
-	this->SetSizerAndFit(sizer);
+	tbDialogNew* dialog = new tbDialogNew(this, 51, _T("test"));
+	dialog->Show();
 }

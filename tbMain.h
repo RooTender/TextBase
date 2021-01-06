@@ -1,6 +1,7 @@
 #pragma once
 #include "wx/wx.h"
 #include "wx/listctrl.h"
+#include "tbDialogNew.h"
 
 class tbMain : public wxFrame
 {
@@ -32,7 +33,11 @@ private:
 
 	wxListView* listView = nullptr;
 
-	void initMenuBar();
 	void setSizers(wxPanel* leftPanel, wxPanel* mainPanel, wxListView* listViewToAttach);
+	void initMenuBar();
+
+	void newDatabase(wxCommandEvent& event);
+
+	wxDECLARE_EVENT_TABLE();
 };
 
