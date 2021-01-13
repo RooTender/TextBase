@@ -2,6 +2,8 @@
 
 wxBEGIN_EVENT_TABLE(tbMain, wxFrame)
 	EVT_MENU(51, tbMain::newDatabase)
+	EVT_MENU(52, tbMain::newTable)
+	EVT_MENU(53, tbMain::newRecord)
 	//EVT_MENU(DO_TEST, tbMain::DoTest)
 	//EVT_SIZE(tbMain::OnSize)
 	//EVT_BUTTON(BUTTON1, tbMain::OnButton1)
@@ -66,7 +68,7 @@ void tbMain::initMenuBar()
 
 	sNewMenu = new wxMenu();
 	sNewMenu->Append(51, _T("Database"));
-	sNewMenu->Append(52, _T("Table"));
+	sNewMenu->Append(52, _T("Category"));
 	sNewMenu->Append(53, _T("Record"));
 
 	fileMenu->AppendSubMenu(sNewMenu, _T("New..."));
@@ -96,6 +98,18 @@ void tbMain::initMenuBar()
 
 void tbMain::newDatabase(wxCommandEvent& event)
 {
-	tbDialogNew* dialog = new tbDialogNew(this, 51, _T("test"));
+	tbDialogNew* dialog = new tbDialogNew(this, 51, _T("Create new database"), wxSize(320, 140));
+	dialog->Show();
+}
+
+void tbMain::newTable(wxCommandEvent& event)
+{
+	tbDialogNew* dialog = new tbDialogNew(this, 52, _T("Add new table"));
+	dialog->Show();
+}
+
+void tbMain::newRecord(wxCommandEvent& event)
+{
+	tbDialogNew* dialog = new tbDialogNew(this, 53, _T("Add new record"));
 	dialog->Show();
 }

@@ -8,5 +8,10 @@ public:
 	~tbDialogNew();
 
 private:
+	const int margin = 20;
+
+	void newDatabase();
+	void newTable();
+	void newRecord();
 };
 

@@ -37,6 +37,8 @@ private:
 	void initMenuBar();
 
 	void newDatabase(wxCommandEvent& event);
+	void newTable(wxCommandEvent& event);
+	void newRecord(wxCommandEvent& event);
 
 	wxDECLARE_EVENT_TABLE();
 };
